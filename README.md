@@ -1,4 +1,4 @@
-#Ansible Playbook -Artifactory
+
 
 
 This playbook installs artifactory  at /opt location .
