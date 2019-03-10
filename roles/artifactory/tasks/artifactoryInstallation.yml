@@ -17,6 +17,27 @@
   become: yes
   shell: unzip /opt/{{ artifactory_zip_file }} -d /opt  creates={{ artifactory_dir }}
 
+- name: Install the db.properties file from templates
+  become: yes
+  template:
+    src: templates/db.properties.j2
+    dest: /opt/{{ artifactory_version}}/etc/db.properties
+
+- name: install mysql jdbc 
+  get_url:
+    url: "{{ mysql_jdbc_url }}"
+    dest: /tmp/
+- name: extract mysql db driver
+  unarchive:
+    src: /tmp/{{ mysql_jdbc_version }}.tar.gz
+    dest: /tmp/
+    remote_src: yes
+
+- name: move the mysql jdbc driver
+  become: yes
+  command: mv /tmp/{{ mysql_jdbc_version }}/{{ mysql_jdbc_version}}.jar {{ artifactory_dir }}/tomcat/lib
+
+
 
 - name: artifactory | Getting in to installation directory
   become: yes
@@ -25,6 +46,15 @@
 - name: artifactory| Install service
   become: yes
   shell: bash /opt/artifactory-oss-6.8.4/bin/installService.sh
+
+- name: artifactory set home values
+  become: yes
+  command: useradd artifactory
+  command: echo "export ARTIFACTORY_USER=artifactory" >> /opt/{{ artifactory_version}}/bin/artifactory.default && echo "export JAVA_HOME=/usr/lib/jvm/java/" >> /opt/{{ artifactory_version}}/bin/artifactory.default && chown -R artifactory:artifactory /opt/{{ artifactory_version}} && mkdir /opt/{{ artifactory_version}}/etc/security/
+
+- name: Generate master.key
+  become: yes
+  shell: openssl rand -hex 16 > /opt/{{ artifactory_version}}/etc/security/master.key
 
 - name: artifactory | Start/Restart artifactory
   become: yes

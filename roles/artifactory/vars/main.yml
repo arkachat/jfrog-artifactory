@@ -3,3 +3,7 @@ artifactory_version: artifactory-oss-6.8.4
 artifactory_dir: /opt/{{ artifactory_version }}
 artifactory_zip_file: artifactory-oss-6.8.4.zip
 artifactory_zip_url: https://bintray.com/jfrog/artifactory/download_file?file_path=jfrog-artifactory-oss-6.8.4.zip
+artifactory_username: jfrog
+artifactory_password: BVz6Rw8NxDCzGwiHAb1T
+mysql_jdbc_version: mysql-connector-java-8.0.15
+mysql_jdbc_url: https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.15.tar.gz 
