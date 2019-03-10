@@ -20,10 +20,3 @@ artifactory_zip_url: http://dl.bintray.com/content/jfrog/artifactory/jfrog-"{{ a
 ####Current Required functionalities.
 - Use of database  for  artifactory
 - Allow repository creation and configuration.
-
-#### To contribute
-
-- Create a feature branch from the change.
-- Make changes to feature branch only.
-- Test your feature branch.
-- Merge back to master.
